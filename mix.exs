@@ -9,7 +9,7 @@ defmodule Ectoo.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env),
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      description: "Make simple things simple in Ecto, e.g. Ectoo.max(MyModel, :age). Also .count, .min, .max, .avg.",
+      description: "Make simple things easy in Ecto, e.g. Ectoo.max(MyModel, :age). Also .count, .min, .max, .avg.",
       package: package,
       deps: deps,
     ]
