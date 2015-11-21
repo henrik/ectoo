@@ -46,7 +46,7 @@ defmodule Ectoo.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:ecto, "> 0.0.0"},
+      {:ecto, "~> 1.0"},
       {:postgrex, "> 0.0.0", optional: true},
     ]
   end
