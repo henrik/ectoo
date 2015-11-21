@@ -7,7 +7,7 @@ This library aims to remedy that by building some convenient abstractions on top
 Counting all records with Ecto:
 
 ``` elixir
-Ecto.Query.from(m in MyModel, select: count(m.id))
+Ecto.Query.from m in MyModel, select: count(m.id)
 ```
 
 Counting all records with Ectoo:
