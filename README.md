@@ -39,7 +39,7 @@ Ectoo.count(query)
 
 ## Installation
 
-Add ectoo to your list of dependencies in `mix.exs`:
+Add Ectoo to your list of dependencies in `mix.exs`:
 
 ``` elixir
 def deps do
@@ -49,7 +49,7 @@ def deps do
 end
 ```
 
-Ensure ectoo is started before your application:
+Ensure Ectoo is started before your application:
 
 ``` elixir
 def application do
