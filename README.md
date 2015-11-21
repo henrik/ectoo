@@ -31,7 +31,7 @@ Ectoo.sum(MyModel, :age)
 
 You can use a more complex query instead of `MyModel`:
 
-```
+``` elixir
 query = Ecto.Query.from m in MyModel, where: id > 5
 Ectoo.count(query)
 ```
