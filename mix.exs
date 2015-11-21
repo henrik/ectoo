@@ -9,8 +9,19 @@ defmodule Ectoo.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env),
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      description: "Ecto conveniences.",
+      description: "Make simple things simple in Ecto, e.g. Ectoo.max(MyModel, :age). Also .count, .min, .max, .avg.",
+      package: package,
       deps: deps,
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["Henrik Nyh"],
+      licenses: ["MIT"],
+      links: %{
+        "GitHub" => "https://github.com/henrik/ectoo",
+      },
     ]
   end
 
