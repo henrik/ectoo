@@ -70,7 +70,6 @@ end
 
 - [ ] Hex docs
 - [ ] Handle composite primary keys?
-- [ ] Make `count` work with joins (primary key detection woes)
 - [ ] Moar?
 
 
