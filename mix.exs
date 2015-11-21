@@ -4,7 +4,7 @@ defmodule Ectoo.Mixfile do
   def project do
     [
       app: :ectoo,
-      version: "0.0.3",
+      version: "0.0.4",
       elixir: "~> 1.1",
       elixirc_paths: elixirc_paths(Mix.env),
       build_embedded: Mix.env == :prod,
@@ -12,6 +12,7 @@ defmodule Ectoo.Mixfile do
       description: "Make simple things easy in Ecto, e.g. Ectoo.max(MyModel, :age). Also .count, .min, .max, .avg.",
       package: package,
       deps: deps,
+      aliases: aliases,
     ]
   end
 
@@ -48,6 +49,13 @@ defmodule Ectoo.Mixfile do
     [
       {:ecto, "~> 1.0"},
       {:postgrex, "> 0.0.0", optional: true},
+    ]
+  end
+
+  defp aliases do
+    [
+      "test.setup": ["ecto.create", "ecto.migrate"],
+      "test.reset": ["ecto.drop", "test.setup"],
     ]
   end
 end

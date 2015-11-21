@@ -8,18 +8,31 @@ Counting all records with Ecto:
 
 ``` elixir
 require Ecto.Query
-Ecto.Query.from m in MyModel, select: count(m.id)
+MyRepo.one(Ecto.Query.from m in MyModel, select: count(m.id))
 ```
 
 Counting all records with Ectoo:
 
 ``` elixir
-Ectoo.count(MyModel)
+MyRepo |> Ectoo.count(MyModel)
 ```
 
 Ectoo does not aim to replace Ecto. Use Ectoo when you have simple needs, and Ecto for the rest.
 
-Ectoo currently lets you do:
+If you want a query that is not executed immediately, just skip the repo:
+
+``` elixir
+Ectoo.count(MyModel)
+```
+
+You can use a more complex query instead of `MyModel`:
+
+``` elixir
+query = Ecto.Query.from m in MyModel, where: id > 5
+Ectoo.count(query)
+```
+
+Ectoo currently includes these functions:
 
 ``` elixir
 Ectoo.count(MyModel)
@@ -29,12 +42,7 @@ Ectoo.avg(MyModel, :age)
 Ectoo.sum(MyModel, :age)
 ```
 
-You can use a more complex query instead of `MyModel`:
-
-``` elixir
-query = Ecto.Query.from m in MyModel, where: id > 5
-Ectoo.count(query)
-```
+Each of these can optionally take a repo as the first argument, to execute the query immediately.
 
 
 ## Installation
@@ -62,8 +70,23 @@ end
 
 ## Development
 
+You must have Postgres installed to run the tests. If the Postgres user does not share your username, you can set the `ECTOO_DB_USER` environment variable.
+
+Install the deps:
+
     mix deps.get
+
+Create the test DB:
+
+    MIX_ENV=test mix test.setup
+
+Run the tests:
+
     mix test
+
+If you need to drop the test DB and set it up anew, do:
+
+    MIX_ENV=test mix test.reset
 
 
 ## TODO

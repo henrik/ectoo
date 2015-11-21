@@ -2,6 +2,7 @@ defmodule Ectoo.SomeModel do
   use Ecto.Schema
 
   schema "some_models" do
+    field :age, :integer
   end
 end
 
