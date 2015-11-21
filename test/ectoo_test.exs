@@ -4,9 +4,9 @@ defmodule EctooTest do
 
   test ".count" do
     assert(
-      (Ectoo.count(Ectoo.Model) |> to_sql)
+      (Ectoo.count(Ectoo.SomeModel) |> to_sql)
       ==
-      (Ecto.Query.from(x in Ectoo.Model, select: count(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: count(x.id)) |> to_sql)
     )
   end
 
@@ -19,7 +19,7 @@ defmodule EctooTest do
   end
 
   test ".count with complex query" do
-    query = Ecto.Query.from(x in Ectoo.Model, where: x.id > 0)
+    query = Ecto.Query.from(x in Ectoo.SomeModel, where: x.id > 0)
     assert(
       (Ectoo.count(query) |> to_sql)
       ==
@@ -29,15 +29,15 @@ defmodule EctooTest do
 
   test ".max" do
     assert(
-      (Ectoo.max(Ectoo.Model, :id) |> to_sql)
+      (Ectoo.max(Ectoo.SomeModel, :id) |> to_sql)
       ==
-      (Ecto.Query.from(x in Ectoo.Model, select: max(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: max(x.id)) |> to_sql)
     )
   end
 
   # Let's test only one of these.
   test ".max with complex query" do
-    query = Ecto.Query.from(x in Ectoo.Model, where: x.id > 0)
+    query = Ecto.Query.from(x in Ectoo.SomeModel, where: x.id > 0)
 
     assert(
       (Ectoo.max(query, :id) |> to_sql)
@@ -48,25 +48,25 @@ defmodule EctooTest do
 
   test ".min" do
     assert(
-      (Ectoo.min(Ectoo.Model, :id) |> to_sql)
+      (Ectoo.min(Ectoo.SomeModel, :id) |> to_sql)
       ==
-      (Ecto.Query.from(x in Ectoo.Model, select: min(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: min(x.id)) |> to_sql)
     )
   end
 
   test ".avg" do
     assert(
-      (Ectoo.avg(Ectoo.Model, :id) |> to_sql)
+      (Ectoo.avg(Ectoo.SomeModel, :id) |> to_sql)
       ==
-      (Ecto.Query.from(x in Ectoo.Model, select: avg(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: avg(x.id)) |> to_sql)
     )
   end
 
   test ".sum" do
     assert(
-      (Ectoo.sum(Ectoo.Model, :id) |> to_sql)
+      (Ectoo.sum(Ectoo.SomeModel, :id) |> to_sql)
       ==
-      (Ecto.Query.from(x in Ectoo.Model, select: sum(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: sum(x.id)) |> to_sql)
     )
   end
 

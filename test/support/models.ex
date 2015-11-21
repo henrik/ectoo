@@ -1,7 +1,7 @@
-defmodule Ectoo.Model do
+defmodule Ectoo.SomeModel do
   use Ecto.Schema
 
-  schema "models" do
+  schema "some_models" do
   end
 end
 

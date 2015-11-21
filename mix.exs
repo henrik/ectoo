@@ -4,7 +4,7 @@ defmodule Ectoo.Mixfile do
   def project do
     [
       app: :ectoo,
-      version: "0.0.2",
+      version: "0.0.3",
       elixir: "~> 1.1",
       elixirc_paths: elixirc_paths(Mix.env),
       build_embedded: Mix.env == :prod,
