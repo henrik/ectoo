@@ -23,7 +23,7 @@ defmodule EctooTest do
     assert(
       (Ectoo.count(query) |> to_sql)
       ==
-      (Ecto.Query.from(x in query, select: count(x.foo)) |> to_sql)
+      (Ecto.Query.from(x in query, select: count(x.id)) |> to_sql)
     )
   end
 
@@ -71,7 +71,6 @@ defmodule EctooTest do
   end
 
   defp to_sql(query) do
-    model = Ectoo.Utils.model(query)
-    Ecto.Adapters.SQL.to_sql(:all, Ectoo.Repo, model)
+    Ecto.Adapters.SQL.to_sql(:all, Ectoo.Repo, query)
   end
 end
