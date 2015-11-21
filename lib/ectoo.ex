@@ -1,0 +1,2 @@
+defmodule Ectoo do
+end
