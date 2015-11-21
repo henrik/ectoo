@@ -1,15 +1,16 @@
 defmodule Ectoo do
   require Ecto.Query
 
-  def count(model) do
+  def count(query) do
     # COUNT("*") would also count NULL values:
     # http://stackoverflow.com/q/10863936/6962
 
     # TODO: Handle composite primary keys.
 
-    [pk] = model.__schema__(:primary_key)
+    pk = Ectoo.Utils.primary_key(query)
+
     Ecto.Query.from(
-      m in model, select: count(field(m, ^pk))
+      m in query, select: count(field(m, ^pk))
     )
   end
 

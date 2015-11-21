@@ -29,6 +29,13 @@ Ectoo.avg(MyModel, :age)
 Ectoo.sum(MyModel, :age)
 ```
 
+You can use a more complex query instead of `MyModel`:
+
+```
+query = Ecto.Query.from m in MyModel, where: id > 5
+Ectoo.count(query)
+```
+
 
 ## Installation
 
@@ -61,7 +68,6 @@ end
 
 ## TODO
 
-- [ ] Make `count` work with more complex queries (the PK extraction probably prevents it)
 - [ ] Hex docs
 - [ ] Handle composite primary keys?
 - [ ] Moar?

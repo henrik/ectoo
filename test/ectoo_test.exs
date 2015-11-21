@@ -18,12 +18,31 @@ defmodule EctooTest do
     )
   end
 
+  test ".count with complex query" do
+    query = Ecto.Query.from(x in Ectoo.Model, where: x.id > 0)
+    assert(
+      (Ectoo.count(query) |> to_sql)
+      ==
+      (Ecto.Query.from(x in query, select: count(x.foo)) |> to_sql)
+    )
+  end
 
   test ".max" do
     assert(
       (Ectoo.max(Ectoo.Model, :id) |> to_sql)
       ==
       (Ecto.Query.from(x in Ectoo.Model, select: max(x.id)) |> to_sql)
+    )
+  end
+
+  # Let's test only one of these.
+  test ".max with complex query" do
+    query = Ecto.Query.from(x in Ectoo.Model, where: x.id > 0)
+
+    assert(
+      (Ectoo.max(query, :id) |> to_sql)
+      ==
+      (Ecto.Query.from(x in query, select: max(x.id)) |> to_sql)
     )
   end
 
@@ -52,6 +71,7 @@ defmodule EctooTest do
   end
 
   defp to_sql(query) do
-    Ecto.Adapters.SQL.to_sql(:all, Ectoo.Repo, query)
+    model = Ectoo.Utils.model(query)
+    Ecto.Adapters.SQL.to_sql(:all, Ectoo.Repo, model)
   end
 end
