@@ -37,9 +37,10 @@ defmodule EctooTest do
   end
 
   test ".count with repo" do
-    %Ectoo.SomeModel{} |> Ectoo.Repo.insert!
+    create_model
+    create_model
 
-    assert (Ectoo.Repo |> Ectoo.count(Ectoo.SomeModel)) == 1
+    assert (Ectoo.Repo |> Ectoo.count(Ectoo.SomeModel)) == 2
   end
 
   test ".max" do
@@ -62,8 +63,8 @@ defmodule EctooTest do
   end
 
   test ".max with repo" do
-    %Ectoo.SomeModel{age: 1} |> Ectoo.Repo.insert!
-    %Ectoo.SomeModel{age: 42} |> Ectoo.Repo.insert!
+    create_model age: 1
+    create_model age: 42
 
     assert (Ectoo.Repo |> Ectoo.max(Ectoo.SomeModel, :age)) == 42
   end
@@ -77,8 +78,8 @@ defmodule EctooTest do
   end
 
   test ".min with repo" do
-    %Ectoo.SomeModel{age: 1} |> Ectoo.Repo.insert!
-    %Ectoo.SomeModel{age: 42} |> Ectoo.Repo.insert!
+    create_model age: 1
+    create_model age: 42
 
     assert (Ectoo.Repo |> Ectoo.min(Ectoo.SomeModel, :age)) == 1
   end
@@ -92,8 +93,8 @@ defmodule EctooTest do
   end
 
   test ".avg with repo" do
-    %Ectoo.SomeModel{age: 10} |> Ectoo.Repo.insert!
-    %Ectoo.SomeModel{age: 20} |> Ectoo.Repo.insert!
+    create_model age: 10
+    create_model age: 20
 
     assert Decimal.equal? (Ectoo.Repo |> Ectoo.avg(Ectoo.SomeModel, :age)), Decimal.new(15)
   end
@@ -107,10 +108,14 @@ defmodule EctooTest do
   end
 
   test ".sum with repo" do
-    %Ectoo.SomeModel{age: 10} |> Ectoo.Repo.insert!
-    %Ectoo.SomeModel{age: 20} |> Ectoo.Repo.insert!
+    create_model age: 10
+    create_model age: 20
 
     assert (Ectoo.Repo |> Ectoo.sum(Ectoo.SomeModel, :age)) == 30
+  end
+
+  defp create_model(opts \\ %{}) do
+    struct(Ectoo.SomeModel, opts) |> Ectoo.Repo.insert!
   end
 
   defp to_sql(query) do
