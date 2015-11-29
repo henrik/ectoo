@@ -13,26 +13,26 @@ defmodule EctooTest do
 
   test ".count" do
     assert(
-      (Ectoo.count(Ectoo.SomeModel) |> to_sql)
+      (Ectoo.count(Ectoo.SomeModel) |> query_to_string)
       ==
-      (Ecto.Query.from(x in Ectoo.SomeModel, select: count(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: count(x.id)) |> query_to_string)
     )
   end
 
   test ".count with custom primary key" do
     assert(
-      (Ectoo.count(Ectoo.ModelWithFooPrimaryKey) |> to_sql)
+      (Ectoo.count(Ectoo.ModelWithFooPrimaryKey) |> query_to_string)
       ==
-      (Ecto.Query.from(x in Ectoo.ModelWithFooPrimaryKey, select: count(x.foo)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.ModelWithFooPrimaryKey, select: count(x.foo)) |> query_to_string)
     )
   end
 
   test ".count with complex query" do
     query = Ecto.Query.from(x in Ectoo.SomeModel, where: x.id > 0)
     assert(
-      (Ectoo.count(query) |> to_sql)
+      (Ectoo.count(query) |> query_to_string)
       ==
-      (Ecto.Query.from(x in query, select: count(x.id)) |> to_sql)
+      (Ecto.Query.from(x in query, select: count(x.id)) |> query_to_string)
     )
   end
 
@@ -45,9 +45,9 @@ defmodule EctooTest do
 
   test ".max" do
     assert(
-      (Ectoo.max(Ectoo.SomeModel, :id) |> to_sql)
+      (Ectoo.max(Ectoo.SomeModel, :id) |> query_to_string)
       ==
-      (Ecto.Query.from(x in Ectoo.SomeModel, select: max(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: max(x.id)) |> query_to_string)
     )
   end
 
@@ -56,9 +56,9 @@ defmodule EctooTest do
     query = Ecto.Query.from(x in Ectoo.SomeModel, where: x.id > 0)
 
     assert(
-      (Ectoo.max(query, :id) |> to_sql)
+      (Ectoo.max(query, :id) |> query_to_string)
       ==
-      (Ecto.Query.from(x in query, select: max(x.id)) |> to_sql)
+      (Ecto.Query.from(x in query, select: max(x.id)) |> query_to_string)
     )
   end
 
@@ -71,9 +71,9 @@ defmodule EctooTest do
 
   test ".min" do
     assert(
-      (Ectoo.min(Ectoo.SomeModel, :id) |> to_sql)
+      (Ectoo.min(Ectoo.SomeModel, :id) |> query_to_string)
       ==
-      (Ecto.Query.from(x in Ectoo.SomeModel, select: min(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: min(x.id)) |> query_to_string)
     )
   end
 
@@ -86,9 +86,9 @@ defmodule EctooTest do
 
   test ".avg" do
     assert(
-      (Ectoo.avg(Ectoo.SomeModel, :id) |> to_sql)
+      (Ectoo.avg(Ectoo.SomeModel, :id) |> query_to_string)
       ==
-      (Ecto.Query.from(x in Ectoo.SomeModel, select: avg(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: avg(x.id)) |> query_to_string)
     )
   end
 
@@ -101,9 +101,9 @@ defmodule EctooTest do
 
   test ".sum" do
     assert(
-      (Ectoo.sum(Ectoo.SomeModel, :id) |> to_sql)
+      (Ectoo.sum(Ectoo.SomeModel, :id) |> query_to_string)
       ==
-      (Ecto.Query.from(x in Ectoo.SomeModel, select: sum(x.id)) |> to_sql)
+      (Ecto.Query.from(x in Ectoo.SomeModel, select: sum(x.id)) |> query_to_string)
     )
   end
 
@@ -118,7 +118,8 @@ defmodule EctooTest do
     struct(Ectoo.SomeModel, opts) |> Ectoo.Repo.insert!
   end
 
-  defp to_sql(query) do
-    Ecto.Adapters.SQL.to_sql(:all, Ectoo.Repo, query)
+  # Queries can't be compared as-is; we need to convert them to strings.
+  defp query_to_string(query) do
+    Inspect.Ecto.Query.to_string(query)
   end
 end
