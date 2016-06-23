@@ -4,13 +4,21 @@
 
 [Ecto](https://github.com/elixir-lang/ecto) is powerful, but a relatively low-level abstraction in some respects. Not all simple things are easy to do.
 
+(This was more true of Ecto 1 than it is of Ecto 2. See examples below.)
+
 This library aims to remedy that by building some convenient abstractions on top of Ecto.
 
-Counting all records with Ecto:
+Counting all records with Ecto 1:
 
 ``` elixir
 require Ecto.Query
 MyRepo.one(Ecto.Query.from m in MyModel, select: count(m.id))
+```
+
+Counting all records with Ecto 2:
+
+``` elixir
+MyRepo.aggregate(MyModel, :count, :id)
 ```
 
 Counting all records with Ectoo:
@@ -54,7 +62,7 @@ Add Ectoo to your list of dependencies in `mix.exs`:
 ``` elixir
 def deps do
   [
-    {:ectoo, "> 0.0.0"},
+    {:ectoo, "~> 0.2.0"},
   ]
 end
 ```

@@ -4,11 +4,7 @@ defmodule EctooTest do
 
   # Transactional tests: don't keep DB data.
   setup do
-    Ecto.Adapters.SQL.begin_test_transaction(Ectoo.Repo)
-
-    ExUnit.Callbacks.on_exit fn ->
-      Ecto.Adapters.SQL.rollback_test_transaction(Ectoo.Repo)
-    end
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Ectoo.Repo)
   end
 
   test ".count" do
