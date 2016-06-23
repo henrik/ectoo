@@ -14,8 +14,3 @@ script:
   - mix deps.get
   - MIX_ENV=test mix test.setup
   - mix test
-
-matrix:
-  include:
-    - elixir: 1.1.0
-      otp_release: 17.4
