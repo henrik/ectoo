@@ -6,5 +6,7 @@ config :ectoo, Ectoo.Repo,
   database: "ectoo_test",
   username: System.get_env("ECTOO_DB_USER") || System.get_env("USER")
 
+config :ectoo, ecto_repos: [Ectoo.Repo]
+
 # Don't show all queries during test run. Gets noisy, especially with the transactions.
 config :logger, level: :info

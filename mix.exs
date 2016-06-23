@@ -4,7 +4,7 @@ defmodule Ectoo.Mixfile do
   def project do
     [
       app: :ectoo,
-      version: "0.0.4",
+      version: "0.2.0",
       elixir: "~> 1.1",
       elixirc_paths: elixirc_paths(Mix.env),
       build_embedded: Mix.env == :prod,
@@ -33,8 +33,11 @@ defmodule Ectoo.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger]]
+    [applications: applications(Mix.env)]
   end
+
+  defp applications(:test), do: [:logger, :postgrex]
+  defp applications(_), do: [:logger]
 
   # Dependencies can be Hex packages:
   #
@@ -47,7 +50,7 @@ defmodule Ectoo.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:ecto, "~> 1.0"},
+      {:ecto, "~> 2.0"},
       {:postgrex, "> 0.0.0", optional: true},
     ]
   end
